@@ -6,8 +6,13 @@ class auth{
     return result.insertId
   }
     
+  async allUsers(){
+    const [result] = await db.execute('SELECT * FROM users')
+    return result
+  }
+  
   async searchUser(data){
-    const [result] = await db.execute('SELECT * FROM users WHERE username = ? AND password_hash = ?', [data.email, data.password])
+    const [result] = await db.execute('SELECT * FROM users WHERE user_email = ? AND password_hash = ?', [data.email, data.password])
     return result[0]
   }
   

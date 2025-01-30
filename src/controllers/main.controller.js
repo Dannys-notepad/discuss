@@ -3,7 +3,7 @@ const renderHome = (req, res) => {
 }
 
 const renderProfile = (req, res) => {
-  res.render('profile', {username: 'Hey', email: 'hry'})
+  res.render('profile', {username: req.session.user.name, email: req.session.user.email})
 }
 
 module.exports = {

@@ -25,7 +25,7 @@ const processSignup = async (req, res) => {
     id: generate.uid(),
     username: username.trim(),
     email,
-    hashedpassword: btoa(password)
+    hashedpassword: atob(password)
   }
   
   try {
@@ -62,7 +62,7 @@ const processLogin = async (req, res) => {
   const { email, password } = await req.body
   const data = {
     email,
-    password: btoa(password)
+    password: atob(password)
   }
   
   try {
@@ -83,8 +83,10 @@ const processLogin = async (req, res) => {
       })
     }
     
-    res.session.user = {
-      user: user.user_id
+    req.session.user = {
+      id: user.user_id,
+      name: user.username,
+      email: user.user_email
     }
     
     return res.redirect('/profile')
@@ -97,6 +99,7 @@ const processLogin = async (req, res) => {
     })
   }
 }
+
 
 module.exports = {
   renderSignup,
